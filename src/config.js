@@ -6,16 +6,16 @@ export const config = {
       'earthporn',
       'landscapephotography',
       'nature',
+      'muglife',
+      'cookiedecorating',
     ],
     sort: 'best',
     time: 'day',
   },
 
   media: {
-    image: true,
     video: true,
     autoPlay: true,
-    randomOrder: true,
   },
 
   grid: {
