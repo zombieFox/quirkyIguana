@@ -1,0 +1,106 @@
+.GridItem {
+  border-radius: calc(var(--Grid__radiusCount) * 0.2vmax);
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  z-index: var(--ZIndex__mediaItem);
+}
+
+.Grid__square .GridItem {
+  aspect-ratio: 1 / 1;
+  position: relative;
+  justify-content: center;
+  align-content: center;
+}
+
+.Grid__square .GridItem .Image,
+.Grid__square .GridItem .Video {
+  width: 100%;
+  height: 100%;
+}
+
+.Grid__square .GridItem .Image__content,
+.Grid__square .GridItem .Video__content {
+  aspect-ratio: var(--GridItem__mediaAspectRatio);
+  width: fit-content;
+  height: fit-content;
+  transform-origin: center;
+  transition: none;
+}
+
+.Grid__square .GridItem.GridItem__square {
+  flex-direction: row;
+}
+
+.Grid__square .GridItem.GridItem__portrait {
+  flex-direction: column;
+}
+
+.Grid__square .GridItem.GridItem__landscape {
+  flex-direction: row;
+}
+
+.Grid__square .GridItem.GridItem__square .Image__content,
+.Grid__square .GridItem.GridItem__square .Video__content {
+  width: 100%;
+}
+
+.Grid__square .GridItem.GridItem__portrait .Image__content,
+.Grid__square .GridItem.GridItem__portrait .Video__content {
+  width: 100%;
+  transform: translateY(calc(var(--GridItem__panY) * 1px));
+}
+
+.Grid__square .GridItem.GridItem__landscape .Image__content,
+.Grid__square .GridItem.GridItem__landscape .Video__content {
+  height: 100%;
+  transform: translateX(calc(var(--GridItem__panX) * 1px));
+}
+
+.Grid__grid .GridItem {}
+
+.Grid__grid .GridItem.GridItem__square {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.Grid__grid .GridItem.GridItem__portrait {
+  grid-column: span 1;
+  grid-row: span 2;
+}
+
+.Grid__grid .GridItem.GridItem__landscape {
+  grid-column: span 2;
+  grid-row: span 1;
+}
+
+.Grid__flex .GridItem {
+  max-height: calc(var(--Grid__flexSizeCount) * 1vmin);
+  aspect-ratio: var(--GridItem__mediaAspectRatio);
+}
+
+.Grid__flex .GridItem {
+  flex-grow: 1;
+}
+
+.Grid__column .GridItem {
+  width: 100%;
+  aspect-ratio: var(--GridItem__mediaAspectRatio);
+}
+
+.Grid__solo .GridItem {
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: var(--GridItem__mediaAspectRatio);
+  scroll-snap-align: center;
+  position: relative;
+}
+
+.Grid__solo .GridItem.GridItem__maxWidth {
+  width: 100%;
+}
+
+.Grid__solo .GridItem.GridItem__maxHeight {
+  height: 100%;
+}
