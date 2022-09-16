@@ -9,8 +9,8 @@ export const config = {
       'muglife',
       'cookiedecorating',
     ],
-    sort: 'best',
-    time: 'day',
+    sort: 'best', // (best|relevance|hot|top|new|comments)
+    time: 'day', // (hour|day|week|month|year|all)
   },
 
   media: {
