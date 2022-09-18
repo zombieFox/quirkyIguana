@@ -1,0 +1,15 @@
+.Icon {
+  width: 1em;
+  height: 1em;
+  font-size: 1.5em;
+  display: flex;
+}
+
+.Icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  vertical-align: middle;
+  overflow: hidden;
+  display: block;
+}

@@ -110,9 +110,7 @@ export const Media = function() {
 
           this.fetching = false;
 
-          if (func) {
-            func();
-          }
+          if (func) { func(); }
 
           console.log('[Media]', 'import', fetchData);
 
