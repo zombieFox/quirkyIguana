@@ -8,23 +8,17 @@ export const Media = function() {
     video: ['mp4'],
   }
 
+  this.lastOptions = false;
+
+  this.lastId = false;
+
+  this.url = false;
+
+  this.fetching = false;
+
   this.redditFetch = ({ subreddit, sort, time, allowModPost, allowCrossPost, allowVideo }) => {
 
     return new Promise((resolve, reject) => {
-
-      if (!subreddit) { subreddit = this.lastOptions.subreddit || 'all' };
-
-      if (!sort) { sort = this.lastOptions.sort || 'best' };
-
-      if (!time) { time = this.lastOptions.time || 'day' };
-
-      if (!allowModPost) { allowModPost = this.lastOptions.allowModPost || false };
-
-      if (!allowCrossPost) { allowCrossPost = this.lastOptions.allowCrossPost || false };
-
-      if (!allowVideo) { allowVideo = this.lastOptions.allowVideo || false };
-
-      this.lastOptions = { subreddit, sort, time, allowModPost, allowCrossPost, allowVideo };
 
       sort = sort.toLowerCase();
 
@@ -66,55 +60,76 @@ export const Media = function() {
           console.log('[Media]', 'fetch', url, { subreddit, sort, time, after: getLastId() });
 
         });
+
     });
+
   }
 
-  this.lastOptions = false;
-
-  this.lastId = false;
-
-  this.url = false;
-
-  this.fetching = false;
-
-  this.import = (subreddit, sort, time) => {
+  this.import = ({ subreddit, sort, time, allowVideo, allowModPost, allowCrossPost, func }) => {
 
     if (!this.fetching) {
 
       this.fetching = true;
 
-      this.redditFetch({ subreddit: subreddit, sort: sort, time: time, allowVideo: config.media.video }).then(fetchData => {
+      if (!subreddit) { subreddit = this.lastOptions.subreddit || 'all' };
 
-        this.lastId = fetchData.data.after;
+      if (!sort) { sort = this.lastOptions.sort || 'best' };
 
-        let arrayOfMedia = [];
+      if (!time) { time = this.lastOptions.time || 'day' };
 
-        fetchData.data.children.forEach(postItem => {
+      if (!allowModPost) { allowModPost = this.lastOptions.allowModPost || false };
 
-          let urlPart = postItem.data.url.split(/\.(?=[^\.]+$)/);
+      if (!allowCrossPost) { allowCrossPost = this.lastOptions.allowCrossPost || false };
 
-          if (this.mediaSupport.image.includes(urlPart[1])) {
+      if (!allowVideo) { allowVideo = this.lastOptions.allowVideo || false };
 
-            if (urlPart[1] == 'gifv') { postItem.data.url = postItem.data.url.replace('gifv', 'mp4') };
+      this.lastOptions = { subreddit, sort, time, allowModPost, allowCrossPost, allowVideo };
 
-            arrayOfMedia.push({ url: postItem.data.url, subreddit: postItem.data.subreddit });
+      this.redditFetch({ subreddit, sort, time, allowVideo, allowModPost, allowCrossPost })
+        .then(fetchData => {
 
+          this.lastId = fetchData.data.after;
+
+          let arrayOfMedia = [];
+
+          fetchData.data.children.forEach(postItem => {
+
+            let urlPart = postItem.data.url.split(/\.(?=[^\.]+$)/);
+
+            if (this.mediaSupport.image.includes(urlPart[1])) {
+
+              if (urlPart[1] == 'gifv') { postItem.data.url = postItem.data.url.replace('gifv', 'mp4') };
+
+              arrayOfMedia.push({ url: postItem.data.url, subreddit: postItem.data.subreddit });
+
+            }
+
+          });
+
+          app.grid.render(arrayOfMedia);
+
+          this.fetching = false;
+
+          if (func) {
+            func();
           }
 
+          console.log('[Media]', 'import', fetchData);
+
         });
-
-        app.grid.render(arrayOfMedia);
-
-        this.fetching = false;
-
-        console.log('[Media]', 'import', fetchData);
-
-      });
 
     };
 
   }
 
-  this.import(config.subreddit.list.join('+'), config.subreddit.sort, config.subreddit.time);
+  this.import({
+    subreddit: config.subreddit.list.join('+'),
+    sort: config.subreddit.sort,
+    time: config.subreddit.time,
+    allowVideo: config.media.video,
+    allowModPost: true,
+    allowCrossPost: true,
+    func: false,
+  });
 
 }

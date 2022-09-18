@@ -38,7 +38,7 @@ export const Grid = function() {
 
     });
 
-    console.log(`[Grid] style applied`);
+    console.log('[Grid] style applied');
 
   }
 
@@ -78,7 +78,7 @@ export const Grid = function() {
 
     return activeView;
 
-    console.log(`[Grid] get active view`);
+    console.log('[Grid] get active view');
 
   }
 
@@ -258,7 +258,7 @@ export const Grid = function() {
 
     });
 
-    console.log(`[Grid] reset grid item pan`);
+    console.log('[Grid] reset grid item pan');
 
   }
 
@@ -266,7 +266,7 @@ export const Grid = function() {
 
     this.zoomer.syncVideo();
 
-    console.log(`[Grid] zoomer video scrub`);
+    console.log('[Grid] zoomer video scrub');
 
   }
 
@@ -274,7 +274,7 @@ export const Grid = function() {
 
     this.zoomer.hide();
 
-    console.log(`[Grid] hide zoomer`);
+    console.log('[Grid] hide zoomer');
 
   }
 
@@ -282,7 +282,7 @@ export const Grid = function() {
 
     this.zoomer.magnification.move();
 
-    console.log(`[Grid] move zoomer`);
+    console.log('[Grid] move zoomer');
 
   }
 
@@ -422,7 +422,7 @@ export const Grid = function() {
 
     });
 
-    console.log(`[Grid] toggle all video play`);
+    console.log('[Grid] toggle all video play');
 
   }
 
@@ -452,7 +452,7 @@ export const Grid = function() {
 
     });
 
-    console.log(`[Grid] toggle all video mute`);
+    console.log('[Grid] toggle all video mute');
 
   }
 
@@ -464,7 +464,7 @@ export const Grid = function() {
 
     });
 
-    console.log(`[Grid] grid item size`);
+    console.log('[Grid] grid item size');
 
   }
 
@@ -476,7 +476,7 @@ export const Grid = function() {
 
     });
 
-    console.log(`[Grid] grid item max`);
+    console.log('[Grid] grid item max');
 
   }
 
@@ -1010,7 +1010,17 @@ export const Grid = function() {
       if (!config.grid.view.solo.active) {
 
         if (window.innerHeight + document.documentElement.scrollTop >= (document.documentElement.scrollHeight * 0.9)) {
-          this.media.import();
+
+          this.media.import({
+            func: () => {
+
+              this.gridItemSize();
+
+              this.gridItemMax();
+
+            }
+          });
+
         }
 
       }
@@ -1039,11 +1049,15 @@ export const Grid = function() {
       keycode: [76],
       action: () => {
 
-        this.media.import();
+        this.media.import({
+          func: () => {
 
-        this.gridItemSize();
+            this.gridItemSize();
 
-        this.gridItemMax();
+            this.gridItemMax();
+
+          }
+        });
 
       }
     });
@@ -1069,6 +1083,8 @@ export const Grid = function() {
     });
 
     this.node.grid.append(this.zoomer.getNode());
+
+    console.log('[Grid] render', array);
 
   }
 
