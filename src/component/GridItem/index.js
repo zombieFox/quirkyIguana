@@ -102,6 +102,22 @@ export const GridItem = function(mediaData) {
 
   }
 
+  this.size = () => {
+
+    let rect = this.node.gridItem.getBoundingClientRect();
+
+    applyCSSVar('--GridItem__mediaWidth', rect.width, this.node.gridItem);
+
+    applyCSSVar('--GridItem__mediaHeight', rect.height, this.node.gridItem);
+
+  }
+
+  this.loadError = () => {
+
+    this.node.gridItem.remove();
+
+  }
+
   this.bind = () => {
 
     this.node.gridItem.addEventListener('mousemove', event => {
@@ -131,6 +147,8 @@ export const GridItem = function(mediaData) {
 
             this.node.gridItem.scrollIntoView();
 
+            this.size();
+
             this.max();
 
             app.message.render(app.grid.view.option[4].id.toUpperCase());
@@ -148,6 +166,10 @@ export const GridItem = function(mediaData) {
             app.grid.view.change(app.grid.view.last.id);
 
             app.grid.style();
+
+            this.size();
+
+            this.max();
 
             app.grid.magnificationHide();
 
@@ -171,16 +193,6 @@ export const GridItem = function(mediaData) {
 
   }
 
-  this.size = () => {
-
-    let rect = this.node.gridItem.getBoundingClientRect();
-
-    applyCSSVar('--GridItem__mediaWidth', rect.width, this.node.gridItem);
-
-    applyCSSVar('--GridItem__mediaHeight', rect.height, this.node.gridItem);
-
-  }
-
   this.render = () => {
 
     switch (mediaData.type) {
@@ -190,7 +202,17 @@ export const GridItem = function(mediaData) {
 
         this.type = 'video';
 
-        this.node.mediaItem = new Video({ mediaData: mediaData, scrub: true });
+        this.node.mediaItem = new Video({
+          mediaData: mediaData,
+          scrub: true,
+          onLoadFunc: () => {
+
+            this.size();
+
+            this.max();
+
+          }
+        });
 
         break;
 
@@ -201,7 +223,16 @@ export const GridItem = function(mediaData) {
 
         this.type = 'image';
 
-        this.node.mediaItem = new Image({ mediaData: mediaData });
+        this.node.mediaItem = new Image({
+          mediaData: mediaData,
+          onLoadFunc: () => {
+
+            this.size();
+
+            this.max();
+
+          }
+        });
 
         break;
 

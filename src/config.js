@@ -8,6 +8,8 @@ export const config = {
       'nature',
       'muglife',
       'cookiedecorating',
+      'roomporn',
+      'perfectloops',
     ],
     sort: 'best', // (best|relevance|hot|top|new|comments)
     time: 'day', // (hour|day|week|month|year|all)
