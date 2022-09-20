@@ -1001,11 +1001,15 @@ export const Grid = function() {
 
         if (window.innerHeight + this.node.grid.scrollTop >= (this.node.grid.scrollHeight * 0.9)) {
 
-          this.media.import();
+          this.media.import({
+            func: () => {
 
-          this.gridItemSize();
+              this.gridItemSize();
 
-          this.gridItemMax();
+              this.gridItemMax();
+
+            }
+          });
 
         }
 
