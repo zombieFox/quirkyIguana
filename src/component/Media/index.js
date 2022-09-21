@@ -100,7 +100,12 @@ export const Media = function() {
 
               if (urlPart[1] == 'gifv') { postItem.data.url = postItem.data.url.replace('gifv', 'mp4') };
 
-              arrayOfMedia.push({ url: postItem.data.url, subreddit: postItem.data.subreddit });
+              arrayOfMedia.push({
+                url: postItem.data.url,
+                subreddit: postItem.data.subreddit,
+                subreddit_name_prefixed: postItem.data.subreddit_name_prefixed,
+                permalink: postItem.data.permalink,
+              });
 
             }
 

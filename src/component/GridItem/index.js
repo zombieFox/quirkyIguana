@@ -1,10 +1,12 @@
 import { Image } from '../Image';
 import { Video } from '../Video';
 import { Zoomer } from '../Zoomer';
+import { Icon } from '../Icon';
 
 import { app } from '../../';
 import { config } from '../../config';
 import { node } from '../../utility/node';
+import { complexNode } from '../../utility/complexNode';
 import { applyCSSVar } from '../../utility/applyCSSVar';
 import { removeCSSVar } from '../../utility/removeCSSVar';
 
@@ -14,6 +16,17 @@ export const GridItem = function(mediaData) {
 
   this.node = {
     gridItem: node('div|class:GridItem'),
+    detail: node('div|class:GridItem__detail'),
+    subreddit: complexNode({
+      tag: 'a',
+      text: mediaData.subredditName,
+      attr: [{ key: 'class', value: 'GridItem__subreddit' }, { key: 'href', value: mediaData.subreddit }, { key: 'target', value: '_blank' }]
+    }),
+    page: complexNode({
+      tag: 'a',
+      attr: [{ key: 'class', value: 'GridItem__page' }, { key: 'href', value: mediaData.page }, { key: 'target', value: '_blank' }],
+      node: [new Icon('link').getNode()]
+    }),
     mediaItem: null,
   }
 
@@ -126,7 +139,7 @@ export const GridItem = function(mediaData) {
 
     this.node.gridItem.addEventListener('click', event => {
 
-      if (!event.altKey && !event.shiftKey) {
+      if (!event.altKey && !event.shiftKey && !event.path.includes(this.node.detail)) {
 
         switch (app.grid.view.getActive().id) {
 
@@ -235,6 +248,12 @@ export const GridItem = function(mediaData) {
         break;
 
     }
+
+    this.node.detail.append(this.node.subreddit);
+
+    this.node.detail.append(this.node.page);
+
+    this.node.gridItem.append(this.node.detail);
 
     this.node.gridItem.append(this.node.mediaItem.getNode());
 

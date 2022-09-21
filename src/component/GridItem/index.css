@@ -7,11 +7,50 @@
   z-index: var(--ZIndex__mediaItem);
 }
 
+:root {
+  --GridItem__detailPadding: 4;
+}
+
+.GridItem__detail {
+  background-color: hsla(var(--Theme__primary1H), calc(var(--Theme__primary1S) * 1%), calc(var(--Theme__primary1L) * 1%), 0.5);
+  padding: calc(((var(--GridItem__detailPadding) / 10) * 1em) + ((var(--Grid__radiusCount) / 8) * 0.2vmax)) calc(((var(--GridItem__detailPadding) / 10) * 1em) + ((var(--Grid__radiusCount) / 2) * 0.2vmax));
+  display: flex;
+  gap: 0.5em;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transition: opacity var(--Theme__transitionMediumEase);
+  z-index: 2;
+  overflow: hidden;
+}
+
+.GridItem:hover .GridItem__detail {
+  opacity: 1;
+}
+
+.GridItem__page,
+.GridItem__subreddit {
+  font-size: 0.5em;
+  display: flex;
+}
+
+.GridItem__subreddit {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .Grid__square .GridItem {
   aspect-ratio: 1 / 1;
   position: relative;
   justify-content: center;
   align-content: center;
+  z-index: 1;
 }
 
 .Grid__square .GridItem .Image,

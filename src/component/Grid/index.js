@@ -1042,7 +1042,14 @@ export const Grid = function() {
 
       let mediaItemArray = item.url.split(/\.(?=[^\.]+$)/);
 
-      let mediaData = { path: mediaItemArray.shift(), type: mediaItemArray.pop(), inView: false };
+      let mediaData = {
+        path: mediaItemArray.shift(),
+        type: mediaItemArray.pop(),
+        inView: false,
+        page: `https://www.reddit.com${item.permalink}`,
+        subreddit: `https://www.reddit.com/${item.subreddit_name_prefixed}`,
+        subredditName: item.subreddit_name_prefixed,
+      };
 
       mediaData.gridItem = new GridItem(mediaData);
 
