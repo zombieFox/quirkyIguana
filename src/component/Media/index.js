@@ -3,10 +3,7 @@ import { config } from '../../config';
 
 export const Media = function() {
 
-  this.mediaSupport = {
-    image: ['png', 'jpg', 'jpeg', 'svg', 'gif', 'gifv'],
-    video: ['mp4'],
-  }
+  this.mediaSupport = ['png', 'jpg', 'jpeg', 'svg', 'gif', 'gifv', 'mp4'];
 
   this.lastOptions = false;
 
@@ -30,7 +27,7 @@ export const Media = function() {
 
       }
 
-      const url = `https://api.reddit.com/r/${subreddit}/${sort}/.json?t=${time}${getLastId()}`;
+      const url = `https://api.reddit.com/r/${subreddit}/${sort}/.json?limit=100&t=${time}${getLastId()}`;
 
       fetch(url).then(result => result.json())
         .then(body => {
@@ -96,7 +93,7 @@ export const Media = function() {
 
             let urlPart = postItem.data.url.split(/\.(?=[^\.]+$)/);
 
-            if (this.mediaSupport.image.includes(urlPart[1])) {
+            if (this.mediaSupport.includes(urlPart[1])) {
 
               if (urlPart[1] == 'gifv') { postItem.data.url = postItem.data.url.replace('gifv', 'mp4') };
 
