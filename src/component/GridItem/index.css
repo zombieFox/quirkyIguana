@@ -26,10 +26,13 @@
   transition: opacity var(--Theme__transitionMediumEase);
   z-index: 2;
   overflow: hidden;
+  pointer-events: none;
 }
 
-.GridItem:hover .GridItem__detail {
+.GridItem__detail:hover,
+.GridItem__showDetail .GridItem__detail {
   opacity: 1;
+  pointer-events: all;
 }
 
 .GridItem__page,
@@ -125,8 +128,8 @@
 }
 
 .Grid__flex .GridItem {
-  width: calc(((var(--GridItem__mediaWidth) * (var(--Grid__flexSizeCount) * 50)) / var(--GridItem__mediaHeight)) * 1px);
-  flex-grow: calc((var(--GridItem__mediaWidth) * (var(--Grid__flexSizeCount) * 50)) / var(--GridItem__mediaHeight));
+  width: calc(((var(--GridItem__mediaWidth) * (var(--Grid__flexSizeCount) * 10)) / var(--GridItem__mediaHeight)) * 1px);
+  flex-grow: calc((var(--GridItem__mediaWidth) * (var(--Grid__flexSizeCount) * 10)) / var(--GridItem__mediaHeight));
 }
 
 .Grid__column .GridItem {

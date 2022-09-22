@@ -129,11 +129,69 @@ export const GridItem = function(mediaData) {
 
   }
 
+  this.detail = {}
+
+  this.detail.reset = () => {
+
+    this.node.gridItem.classList.remove('GridItem__showDetail');
+
+  }
+
+  this.detail.check = () => {
+
+    let rect = this.node.gridItem.getBoundingClientRect();
+
+    let cursorPostionX = event.clientX - this.node.gridItem.offsetLeft;
+
+    let cursorPostionY;
+
+    switch (app.grid.view.getActive().id) {
+
+      case 'solo':
+
+        cursorPostionY = (event.clientY + window.scrollY) - app.grid.getNode().offsetTop;
+
+        break;
+
+      default:
+
+        cursorPostionY = (event.clientY + window.scrollY) - this.node.gridItem.offsetTop;
+
+        break;
+
+    }
+
+    let threshold = rect.height * 0.25;
+
+    if (cursorPostionY < threshold) {
+
+      this.node.gridItem.classList.add('GridItem__showDetail');
+
+    } else {
+
+      this.node.gridItem.classList.remove('GridItem__showDetail');
+
+    };
+
+  }
+
   this.bind = () => {
 
     this.node.gridItem.addEventListener('mousemove', event => {
 
-      if (event.shiftKey && config.grid.view.square.active) { this.pan.move(event); }
+      this.detail.check(event);
+
+    });
+
+    this.node.gridItem.addEventListener('mouseout', event => {
+
+      this.detail.reset();
+
+    });
+
+    this.node.gridItem.addEventListener('mousemove', event => {
+
+      if (event.shiftKey && config.grid.view.square.active) { this.pan.move(event); };
 
     });
 
@@ -198,7 +256,7 @@ export const GridItem = function(mediaData) {
 
         }
 
-      }
+      };
 
     });
 
