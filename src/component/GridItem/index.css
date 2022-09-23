@@ -38,6 +38,7 @@
 .GridItem__page,
 .GridItem__subreddit {
   font-size: 0.5em;
+  font-weight: var(--Theme__fontWeightBold);
   display: flex;
 }
 
