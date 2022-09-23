@@ -300,7 +300,7 @@ export const Grid = function() {
 
     this.allMediaItem.forEach(mediaItem => {
 
-      let gridItemRect = mediaItem.gridItem.node.mediaItem.getNode().getBoundingClientRect();
+      let gridItemRect = mediaItem.gridItem.mediaItem.getNode().getBoundingClientRect();
 
       let windowHeight = window.innerHeight;
 
@@ -350,7 +350,7 @@ export const Grid = function() {
 
           let windowHeight = window.innerHeight;
 
-          if (gridItemRect.top >= ((window.innerHeight * 0.25) * -1) && gridItemRect.bottom <= (window.innerHeight * 1.25)) {
+          if (gridItemRect.top >= ((window.innerHeight * 0.5) * -1) && gridItemRect.bottom <= (window.innerHeight * 1.5)) {
 
             allVideoMediaItemInView.push(mediaItem);
 
@@ -374,7 +374,7 @@ export const Grid = function() {
 
         case 'video':
 
-          mediaItem.gridItem.node.mediaItem.pause();
+          mediaItem.gridItem.mediaItem.pause();
 
           break;
 
@@ -384,9 +384,9 @@ export const Grid = function() {
 
     this.videoInView().forEach(mediaItem => {
 
-      if (mediaItem.gridItem.node.mediaItem.isPaused()) {
+      if (mediaItem.gridItem.mediaItem.isPaused()) {
 
-        mediaItem.gridItem.node.mediaItem.play();
+        mediaItem.gridItem.mediaItem.play();
 
       }
 
@@ -411,9 +411,9 @@ export const Grid = function() {
         case 'video':
 
           if (config.media.autoPlay) {
-            mediaItem.gridItem.node.mediaItem.play();
+            mediaItem.gridItem.mediaItem.play();
           } else {
-            mediaItem.gridItem.node.mediaItem.pause();
+            mediaItem.gridItem.mediaItem.pause();
           }
 
           break;
@@ -441,9 +441,9 @@ export const Grid = function() {
         case 'video':
 
           if (this.videoMute) {
-            mediaItem.gridItem.node.mediaItem.mute();
+            mediaItem.gridItem.mediaItem.mute();
           } else {
-            mediaItem.gridItem.node.mediaItem.unmute();
+            mediaItem.gridItem.mediaItem.unmute();
           }
 
           break;
@@ -932,8 +932,6 @@ export const Grid = function() {
 
             case 'mp4':
             case 'webm':
-
-              this.mediaInView();
 
               this.magnificationVideoSync();
 
