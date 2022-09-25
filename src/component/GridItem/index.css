@@ -7,6 +7,11 @@
   z-index: var(--ZIndex__mediaItem);
 }
 
+.GridItem.GridItem__hide .Image,
+.GridItem.GridItem__hide .Video {
+  visibility: hidden;
+}
+
 :root {
   --GridItem__detailPadding: 4;
 }

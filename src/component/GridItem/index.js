@@ -122,6 +122,18 @@ export const GridItem = function(mediaData) {
 
   }
 
+  this.hide = () => {
+
+    this.node.gridItem.classList.add('GridItem__hide');
+
+  }
+
+  this.show = () => {
+
+    this.node.gridItem.classList.remove('GridItem__hide');
+
+  }
+
   this.loadError = () => {
 
     this.node.gridItem.remove();
@@ -217,9 +229,15 @@ export const GridItem = function(mediaData) {
 
             this.node.gridItem.scrollIntoView();
 
-            this.size();
+            app.grid.gridItemMax();
 
-            this.max();
+            app.grid.mediaInView();
+
+            app.grid.mediaOutView();
+
+            app.grid.inView();
+
+            app.grid.outView();
 
             app.message.render(app.grid.view.option[4].id.toUpperCase());
 
@@ -237,13 +255,17 @@ export const GridItem = function(mediaData) {
 
             app.grid.style();
 
-            this.size();
-
-            this.max();
-
             app.grid.magnificationHide();
 
             app.grid.gridItemMax();
+
+            app.grid.mediaInView();
+
+            app.grid.mediaOutView();
+
+            app.grid.inView();
+
+            app.grid.outView();
 
             document.documentElement.scrollTop = app.grid.view.last.scrollY;
 
