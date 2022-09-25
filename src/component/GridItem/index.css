@@ -13,7 +13,7 @@
 }
 
 :root {
-  --GridItem__detailPadding: 4;
+  --GridItem__detailPadding: 6;
 }
 
 .GridItem__detail {
