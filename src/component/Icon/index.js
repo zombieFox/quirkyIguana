@@ -2,7 +2,7 @@ import { node } from '../../utility/node';
 
 import './index.css';
 
-export const Icon = function(name) {
+export const Icon = function(name, className) {
 
   this.node = {
     icon: node('span|class:Icon'),
@@ -134,6 +134,16 @@ export const Icon = function(name) {
       this.node.svg.append(path);
 
     });
+
+    if (className) {
+
+      className.forEach(classNameItem => {
+
+        this.node.icon.classList.add(classNameItem);
+
+      });
+
+    }
 
     this.node.icon.append(this.node.svg);
 

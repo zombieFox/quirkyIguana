@@ -17,6 +17,16 @@ export const GridItem = function(mediaData) {
   this.node = {
     gridItem: node('div|class:GridItem'),
     detail: node('div|class:GridItem__detail'),
+    title: complexNode({
+      tag: 'a',
+      attr: [{ key: 'class', value: 'GridItem__page' }, { key: 'href', value: mediaData.page }, { key: 'target', value: '_blank' }],
+    }),
+    titleText: complexNode({
+      tag: 'span',
+      text: mediaData.title,
+      attr: [{ key: 'class', value: 'GridItem__title' }],
+    }),
+    titleIcon: new Icon('link', ['GridItem__icon']),
     subreddit: complexNode({
       tag: 'a',
       text: mediaData.subredditName,
@@ -25,7 +35,6 @@ export const GridItem = function(mediaData) {
     page: complexNode({
       tag: 'a',
       attr: [{ key: 'class', value: 'GridItem__page' }, { key: 'href', value: mediaData.page }, { key: 'target', value: '_blank' }],
-      node: [new Icon('link').getNode()]
     })
   }
 
@@ -290,7 +299,6 @@ export const GridItem = function(mediaData) {
     switch (mediaData.type) {
 
       case 'mp4':
-      case 'webm':
 
         this.type = 'video';
 
@@ -330,9 +338,13 @@ export const GridItem = function(mediaData) {
 
     }
 
-    this.node.detail.append(this.node.subreddit);
+    this.node.title.append(this.node.titleText);
 
-    this.node.detail.append(this.node.page);
+    this.node.title.append(this.node.titleIcon.getNode());
+
+    this.node.detail.append(this.node.title);
+
+    this.node.detail.append(this.node.subreddit);
 
     this.node.gridItem.append(this.node.detail);
 

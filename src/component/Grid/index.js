@@ -1048,37 +1048,19 @@ export const Grid = function() {
 
     window.addEventListener('resize', () => {
 
-      if (config.grid.view.square.active) {
+      this.gridItemSize();
 
-        this.mediaInView();
+      this.gridItemMax();
 
-        this.mediaOutView();
+      this.mediaInView();
 
-        this.inView();
+      this.mediaOutView();
 
-        this.outView();
+      this.inView();
 
-        this.panReset();
+      this.outView();
 
-      };
-
-    });
-
-    window.addEventListener('resize', () => {
-
-      if (config.grid.view.solo.active) {
-
-        this.mediaInView();
-
-        this.mediaOutView();
-
-        this.inView();
-
-        this.outView();
-
-        this.gridItemMax();
-
-      };
+      this.gridItemMax();
 
     });
 
@@ -1091,7 +1073,6 @@ export const Grid = function() {
           switch (this.inView().type) {
 
             case 'mp4':
-            case 'webm':
 
               this.magnificationVideoSync();
 
@@ -1237,6 +1218,7 @@ export const Grid = function() {
       let mediaData = {
         path: mediaItemArray.shift(),
         type: mediaItemArray.pop(),
+        title: item.title,
         inView: false,
         page: `https://www.reddit.com${item.permalink}`,
         subreddit: `https://www.reddit.com/${item.subreddit_name_prefixed}`,

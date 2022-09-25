@@ -2,6 +2,9 @@ export const config = {
 
   subreddit: {
     list: [
+      'pics',
+      'art',
+      'aww',
       'photography',
       'earthporn',
       'landscapephotography',

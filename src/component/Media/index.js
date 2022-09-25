@@ -99,6 +99,7 @@ export const Media = function() {
 
               arrayOfMedia.push({
                 url: postItem.data.url,
+                title: postItem.data.title,
                 subreddit: postItem.data.subreddit,
                 subreddit_name_prefixed: postItem.data.subreddit_name_prefixed,
                 permalink: postItem.data.permalink,

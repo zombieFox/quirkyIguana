@@ -17,16 +17,16 @@
 }
 
 .GridItem__detail {
-  background-color: hsla(var(--Theme__primary1H), calc(var(--Theme__primary1S) * 1%), calc(var(--Theme__primary1L) * 1%), 0.5);
+  background-color: hsla(var(--Theme__primary1H), calc(var(--Theme__primary1S) * 1%), calc(var(--Theme__primary1L) * 1%), 0.75);
   padding: calc(((var(--GridItem__detailPadding) / 10) * 1em) + ((var(--Grid__radiusCount) / 8) * 0.2vmax)) calc(((var(--GridItem__detailPadding) / 10) * 1em) + ((var(--Grid__radiusCount) / 2) * 0.2vmax));
   display: flex;
-  gap: 0.5em;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 0.25em;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
+  max-height: 100%;
   opacity: 0;
   transition: opacity var(--Theme__transitionMediumEase);
   z-index: 2;
@@ -43,8 +43,7 @@
 .GridItem__page,
 .GridItem__subreddit {
   font-size: 0.5em;
-  font-weight: var(--Theme__fontWeightBold);
-  display: flex;
+  line-height: 1.4;
 }
 
 .GridItem__subreddit {
@@ -52,6 +51,63 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.GridItem__subreddit:link,
+.GridItem__subreddit:visited {
+  color: var(--Theme__accent300);
+}
+
+.GridItem__subreddit:focus {
+  color: var(--Theme__accent400);
+}
+
+.GridItem__subreddit:hover {
+  color: var(--Theme__accent400);
+}
+
+.GridItem__subreddit:active {
+  color: var(--Theme__accent500);
+}
+
+.GridItem__page {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.5em;
+  font-weight: var(--Theme__fontWeightBold);
+  max-height: 100%;
+  overflow: hidden;
+}
+
+.GridItem__title {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  flex-grow: 1;
+}
+
+.GridItem__icon {
+  flex-shrink: 0;
+}
+
+.GridItem__page:link .GridItem__icon,
+.GridItem__page:visited .GridItem__icon {
+  color: var(--Theme__accent300);
+}
+
+.GridItem__page:focus .GridItem__icon {
+  color: var(--Theme__accent400);
+}
+
+.GridItem__page:hover .GridItem__icon {
+  color: var(--Theme__accent400);
+}
+
+.GridItem__page:active .GridItem__icon {
+  color: var(--Theme__accent500);
 }
 
 .Grid__square .GridItem {
