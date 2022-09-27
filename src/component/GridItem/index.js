@@ -143,6 +143,24 @@ export const GridItem = function(mediaData) {
 
   }
 
+  this.videoProgressHit = (event) => {
+
+    let clickOnProgress = false;
+
+    switch (this.type) {
+
+      case 'video':
+
+        clickOnProgress = event.path.includes(this.mediaItem.node.progress);
+
+        break;
+
+    }
+
+    return clickOnProgress;
+
+  }
+
   this.loadError = () => {
 
     this.node.gridItem.remove();
@@ -219,7 +237,7 @@ export const GridItem = function(mediaData) {
 
     this.node.gridItem.addEventListener('click', event => {
 
-      if (!event.altKey && !event.shiftKey && !event.path.includes(this.node.detail)) {
+      if (!event.altKey && !event.shiftKey && !this.videoProgressHit(event) && !event.path.includes(this.node.detail)) {
 
         switch (app.grid.view.getActive().id) {
 

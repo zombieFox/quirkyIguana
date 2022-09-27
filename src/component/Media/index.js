@@ -3,7 +3,7 @@ import { config } from '../../config';
 
 export const Media = function() {
 
-  this.mediaSupport = ['png', 'jpg', 'jpeg', 'svg', 'gif', 'gifv', 'mp4'];
+  this.mediaSupport = ['png', 'jpg', 'jpeg', 'svg'];
 
   this.lastOptions = false;
 
@@ -27,7 +27,7 @@ export const Media = function() {
 
       }
 
-      const url = `https://api.reddit.com/r/${subreddit}/${sort}/.json?limit=100&t=${time}${getLastId()}`;
+      const url = `https://api.reddit.com/r/${subreddit}/${sort}/.json?limit=10000&t=${time}${getLastId()}`;
 
       fetch(url).then(result => result.json())
         .then(body => {
