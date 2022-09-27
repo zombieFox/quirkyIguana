@@ -175,7 +175,7 @@ export const GridItem = function(mediaData) {
 
   }
 
-  this.detail.check = () => {
+  this.detail.check = (event) => {
 
     let rect = this.node.gridItem.getBoundingClientRect();
 
@@ -185,7 +185,7 @@ export const GridItem = function(mediaData) {
 
     switch (app.grid.view.getActive().id) {
 
-      case 'solo':
+      case app.grid.view.all.solo.id:
 
         cursorPostionY = (event.clientY + window.scrollY) - app.grid.getNode().offsetTop;
 
@@ -231,7 +231,7 @@ export const GridItem = function(mediaData) {
 
     this.node.gridItem.addEventListener('mousemove', event => {
 
-      if (event.shiftKey && config.grid.view.square.active) { this.pan.move(event); };
+      if (event.shiftKey && app.grid.view.all.square.active) { this.pan.move(event); };
 
     });
 
@@ -241,16 +241,15 @@ export const GridItem = function(mediaData) {
 
         switch (app.grid.view.getActive().id) {
 
-          case 'square':
-          case 'grid':
-          case 'flex':
-          case 'column':
+          case app.grid.view.all.flex.id:
+          case app.grid.view.all.square.id:
+          case app.grid.view.all.column.id:
 
             app.grid.view.last.id = app.grid.view.getActive().id;
 
             app.grid.view.last.scrollY = document.documentElement.scrollTop;
 
-            app.grid.view.change('solo');
+            app.grid.view.change(app.grid.view.all.solo.id);
 
             app.grid.style();
 
@@ -266,16 +265,18 @@ export const GridItem = function(mediaData) {
 
             app.grid.outView();
 
-            app.message.render(app.grid.view.option[4].id.toUpperCase());
+            app.message.render(app.grid.view.all.solo.id.toUpperCase());
 
             break;
 
-          case 'solo':
+          case app.grid.view.all.solo.id:
 
             let scrollPosition = document.documentElement.scrollTop;
 
-            if (app.grid.view.last.id === null || app.grid.view.last.id == 'solo') {
-              app.grid.view.last.id = 'square';
+            if (app.grid.view.last.id === null || app.grid.view.last.id == app.grid.view.all.solo.id) {
+
+              app.grid.view.last.id = app.grid.view.all.flex.id;
+
             };
 
             app.grid.view.change(app.grid.view.last.id);
@@ -296,7 +297,7 @@ export const GridItem = function(mediaData) {
 
             document.documentElement.scrollTop = app.grid.view.last.scrollY;
 
-            app.grid.view.last.id = 'solo';
+            app.grid.view.last.id = app.grid.view.all.solo.id;
 
             app.grid.view.last.scrollY = scrollPosition;
 
