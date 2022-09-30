@@ -2,6 +2,7 @@ export const config = {
 
   subreddit: {
     list: [
+      'gifs',
       'pics',
       'art',
       'aww',

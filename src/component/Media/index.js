@@ -91,19 +91,71 @@ export const Media = function() {
 
           fetchData.data.children.forEach(postItem => {
 
-            let urlPart = postItem.data.url.split(/\.(?=[^\.]+$)/);
+            let type = null;
 
-            if (this.mediaSupport.includes(urlPart[1])) {
+            let url = null;
 
-              if (urlPart[1] == 'gifv') { postItem.data.url = postItem.data.url.replace('gifv', 'mp4') };
+            if (postItem.data.post_hint === 'image') {
 
-              arrayOfMedia.push({
-                url: postItem.data.url,
-                title: postItem.data.title,
-                subreddit: postItem.data.subreddit,
-                subreddit_name_prefixed: postItem.data.subreddit_name_prefixed,
-                permalink: postItem.data.permalink,
-              });
+              url = postItem.data.url;
+
+              type = 'image';
+
+            } else if (
+              String(postItem.data.url).endsWith('.gif') ||
+              String(postItem.data.url).endsWith('.jpg') ||
+              String(postItem.data.url).endsWith('.png') ||
+              String(postItem.data.url).endsWith('.jpeg')
+            ) {
+
+              url = postItem.data.url;
+
+              type = 'image';
+
+            } else if (
+              postItem.data.secure_media &&
+              postItem.data.secure_media.reddit_video &&
+              postItem.data.secure_media.reddit_video.fallback_url
+            ) {
+
+              url = postItem.data.secure_media.reddit_video.fallback_url;
+
+              type = 'video';
+
+            } else if (postItem.data.post_hint === 'hosted:video') {
+
+              url = postItem.data.url;
+
+              type = 'video';
+
+            } else if (
+              postItem.data.preview &&
+              postItem.data.preview.reddit_video_preview &&
+              postItem.data.preview.reddit_video_preview.fallback_url
+            ) {
+
+              url = postItem.data.preview.reddit_video_preview.fallback_url;
+
+              type = 'video';
+
+            }
+
+            if (url) {
+
+              let urlPart = url.split(/\.(?=[^\.]+$)/);
+
+              if (this.mediaSupport.includes(urlPart[1])) {
+
+                arrayOfMedia.push({
+                  type,
+                  url,
+                  title: postItem.data.title,
+                  subreddit: postItem.data.subreddit,
+                  subreddit_name_prefixed: postItem.data.subreddit_name_prefixed,
+                  permalink: postItem.data.permalink,
+                });
+
+              }
 
             }
 
