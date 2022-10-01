@@ -138,24 +138,24 @@ export const Media = function() {
 
               type = 'video';
 
+            } else if (postItem.data.is_gallery) {
+
+              url = postItem.data.media_metadata[postItem.data.gallery_data.items[0].media_id].s.u.replace(/amp;/g, '');
+
+              type = 'image';
+
             }
 
             if (url) {
 
-              let urlPart = url.split(/\.(?=[^\.]+$)/);
-
-              if (this.mediaSupport.includes(urlPart[1])) {
-
-                arrayOfMedia.push({
-                  type,
-                  url,
-                  title: postItem.data.title,
-                  subreddit: postItem.data.subreddit,
-                  subreddit_name_prefixed: postItem.data.subreddit_name_prefixed,
-                  permalink: postItem.data.permalink,
-                });
-
-              }
+              arrayOfMedia.push({
+                type,
+                url,
+                title: postItem.data.title,
+                subreddit: postItem.data.subreddit,
+                subreddit_name_prefixed: postItem.data.subreddit_name_prefixed,
+                permalink: postItem.data.permalink,
+              });
 
             }
 

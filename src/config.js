@@ -9,6 +9,7 @@ export const config = {
       'photography',
       'earthporn',
       'landscapephotography',
+      'movieposterporn',
       'nature',
       'muglife',
       'cookiedecorating',

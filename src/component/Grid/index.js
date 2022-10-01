@@ -1061,7 +1061,7 @@ export const Grid = function() {
 
           switch (this.inView().type) {
 
-            case 'mp4':
+            case 'video':
 
               this.magnificationVideoSync();
 
@@ -1202,11 +1202,9 @@ export const Grid = function() {
 
     array.forEach(item => {
 
-      let mediaItemArray = item.url.split(/\.(?=[^\.]+$)/);
-
       let mediaData = {
-        path: mediaItemArray.shift(),
-        type: mediaItemArray.pop(),
+        url: item.url,
+        type: item.type,
         title: item.title,
         inView: false,
         page: `https://www.reddit.com${item.permalink}`,

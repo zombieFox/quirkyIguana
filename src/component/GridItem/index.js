@@ -317,7 +317,7 @@ export const GridItem = function(mediaData) {
 
     switch (mediaData.type) {
 
-      case 'mp4':
+      case 'video':
 
         this.type = 'video';
 
@@ -335,10 +335,7 @@ export const GridItem = function(mediaData) {
 
         break;
 
-      case 'gif':
-      case 'jpg':
-      case 'jpeg':
-      case 'png':
+      case 'image':
 
         this.type = 'image';
 
