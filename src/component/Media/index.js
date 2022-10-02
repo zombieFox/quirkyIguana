@@ -97,52 +97,65 @@ export const Media = function() {
 
             if (postItem.data.post_hint === 'image') {
 
-              url = postItem.data.url;
-
               type = 'image';
 
+              url = postItem.data.url;
+
             } else if (
+
               String(postItem.data.url).endsWith('.gif') ||
-              String(postItem.data.url).endsWith('.jpg') ||
-              String(postItem.data.url).endsWith('.png') ||
-              String(postItem.data.url).endsWith('.jpeg')
-            ) {
 
-              url = postItem.data.url;
+              String(postItem.data.url).endsWith('.jpg') ||
+
+              String(postItem.data.url).endsWith('.png') ||
+
+              String(postItem.data.url).endsWith('.jpeg')
+
+            ) {
 
               type = 'image';
 
+              url = postItem.data.url;
+
             } else if (
+
               postItem.data.secure_media &&
+
               postItem.data.secure_media.reddit_video &&
+
               postItem.data.secure_media.reddit_video.fallback_url
+
             ) {
+
+              type = 'video';
 
               url = postItem.data.secure_media.reddit_video.fallback_url;
 
-              type = 'video';
-
             } else if (postItem.data.post_hint === 'hosted:video') {
+
+              type = 'video';
 
               url = postItem.data.url;
 
-              type = 'video';
-
             } else if (
+
               postItem.data.preview &&
+
               postItem.data.preview.reddit_video_preview &&
+
               postItem.data.preview.reddit_video_preview.fallback_url
+
             ) {
+
+              type = 'video';
 
               url = postItem.data.preview.reddit_video_preview.fallback_url;
 
-              type = 'video';
-
             } else if (postItem.data.is_gallery) {
 
-              url = postItem.data.media_metadata[postItem.data.gallery_data.items[0].media_id].s.u.replace(/amp;/g, '');
-
               type = 'image';
+
+              url = postItem.data.media_metadata[postItem.data.gallery_data.items[0].media_id].s.u.replace(/amp;/g, '');
 
             }
 
@@ -152,9 +165,9 @@ export const Media = function() {
                 type,
                 url,
                 title: postItem.data.title,
-                subreddit: postItem.data.subreddit,
-                subreddit_name_prefixed: postItem.data.subreddit_name_prefixed,
-                permalink: postItem.data.permalink,
+                page: `https://www.reddit.com${postItem.data.permalink}`,
+                subreddit: `https://www.reddit.com/${postItem.data.subreddit_name_prefixed}`,
+                subredditName: postItem.data.subreddit_name_prefixed,
               });
 
             }

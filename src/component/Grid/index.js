@@ -1200,17 +1200,7 @@ export const Grid = function() {
 
   this.render = (array) => {
 
-    array.forEach(item => {
-
-      let mediaData = {
-        url: item.url,
-        type: item.type,
-        title: item.title,
-        inView: false,
-        page: `https://www.reddit.com${item.permalink}`,
-        subreddit: `https://www.reddit.com/${item.subreddit_name_prefixed}`,
-        subredditName: item.subreddit_name_prefixed,
-      };
+    array.forEach(mediaData => {
 
       mediaData.gridItem = new GridItem(mediaData);
 
