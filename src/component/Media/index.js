@@ -13,7 +13,7 @@ export const Media = function() {
 
   this.fetching = false;
 
-  this.redditFetch = ({ subreddit, sort, time, allowModPost, allowCrossPost, allowVideo }) => {
+  this.redditFetch = ({ subreddit, limit, sort, time, allowModPost, allowCrossPost, allowVideo }) => {
 
     return new Promise((resolve, reject) => {
 
@@ -27,7 +27,7 @@ export const Media = function() {
 
       }
 
-      const url = `https://api.reddit.com/r/${subreddit}/${sort}/.json?limit=100&t=${time}${getLastId()}`;
+      const url = `https://api.reddit.com/r/${subreddit}/${sort}/.json?limit=${limit}&t=${time}${getLastId()}`;
 
       fetch(url).then(result => result.json())
         .then(body => {
@@ -62,13 +62,15 @@ export const Media = function() {
 
   }
 
-  this.import = ({ subreddit, sort, time, allowVideo, allowModPost, allowCrossPost, func }) => {
+  this.import = ({ subreddit, limit, sort, time, allowVideo, allowModPost, allowCrossPost, func }) => {
 
     if (!this.fetching) {
 
       this.fetching = true;
 
       if (!subreddit) { subreddit = this.lastOptions.subreddit || 'all' };
+
+      if (!limit) { limit = this.lastOptions.limit || 10 };
 
       if (!sort) { sort = this.lastOptions.sort || 'best' };
 
@@ -80,9 +82,9 @@ export const Media = function() {
 
       if (!allowVideo) { allowVideo = this.lastOptions.allowVideo || false };
 
-      this.lastOptions = { subreddit, sort, time, allowModPost, allowCrossPost, allowVideo };
+      this.lastOptions = { subreddit, limit, sort, time, allowModPost, allowCrossPost, allowVideo };
 
-      this.redditFetch({ subreddit, sort, time, allowVideo, allowModPost, allowCrossPost })
+      this.redditFetch({ subreddit, limit, sort, time, allowVideo, allowModPost, allowCrossPost })
         .then(fetchData => {
 
           this.lastId = fetchData.data.after;
@@ -190,6 +192,7 @@ export const Media = function() {
 
   this.import({
     subreddit: config.subreddit.list.join('+'),
+    limit: 20,
     sort: config.subreddit.sort,
     time: config.subreddit.time,
     allowVideo: config.media.video,
