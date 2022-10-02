@@ -117,7 +117,6 @@
   position: relative;
   justify-content: center;
   align-content: center;
-  z-index: 1;
 }
 
 .Grid__square .GridItem .Image,
@@ -162,16 +161,6 @@
 .Grid__square .GridItem.GridItem__landscape .Video__content {
   height: 100%;
   transform: translateX(calc(var(--GridItem__panX) * 1px));
-}
-
-.Grid__flex {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.Grid__flex::after {
-  content: "";
-  flex-grow: 999999999;
 }
 
 .Grid__flex .GridItem {
