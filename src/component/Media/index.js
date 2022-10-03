@@ -3,8 +3,6 @@ import { config } from '../../config';
 
 export const Media = function() {
 
-  this.mediaSupport = ['png', 'jpg', 'jpeg', 'svg', 'gif', 'gifv', 'mp4'];
-
   this.lastOptions = false;
 
   this.lastId = false;
@@ -109,9 +107,9 @@ export const Media = function() {
 
               String(postItem.data.url).endsWith('.jpg') ||
 
-              String(postItem.data.url).endsWith('.png') ||
+              String(postItem.data.url).endsWith('.jpeg') ||
 
-              String(postItem.data.url).endsWith('.jpeg')
+              String(postItem.data.url).endsWith('.png')
 
             ) {
 
