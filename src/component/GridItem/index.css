@@ -44,32 +44,7 @@
 
 .GridItem__page,
 .GridItem__subreddit {
-  font-size: 0.5em;
   line-height: 1.4;
-}
-
-.GridItem__subreddit {
-  display: inline-block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.GridItem__subreddit:link,
-.GridItem__subreddit:visited {
-  color: var(--Theme__accent200);
-}
-
-.GridItem__subreddit:focus {
-  color: var(--Theme__accent300);
-}
-
-.GridItem__subreddit:hover {
-  color: var(--Theme__accent300);
-}
-
-.GridItem__subreddit:active {
-  color: var(--Theme__accent400);
 }
 
 .GridItem__page {
@@ -77,10 +52,36 @@
   flex-direction: row;
   align-items: flex-start;
   gap: 0.5em;
-  font-weight: var(--Theme__fontWeightBold);
   width: 100%;
   max-height: 100%;
   overflow: hidden;
+  font-size: 0.6em;
+}
+
+.GridItem__page:link,
+.GridItem__page:visited {
+  color: var(--Theme__accent200);
+}
+
+.GridItem__page:focus {
+  color: var(--Theme__accent300);
+}
+
+.GridItem__page:hover {
+  color: var(--Theme__accent300);
+}
+
+.GridItem__page:active {
+  color: var(--Theme__accent400);
+}
+
+.GridItem__subreddit {
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.4em;
+  font-weight: var(--Theme__fontWeightBold);
 }
 
 .GridItem__title {
@@ -93,23 +94,6 @@
 
 .GridItem__icon {
   flex-shrink: 0;
-}
-
-.GridItem__page:link .GridItem__icon,
-.GridItem__page:visited .GridItem__icon {
-  color: var(--Theme__accent200);
-}
-
-.GridItem__page:focus .GridItem__icon {
-  color: var(--Theme__accent300);
-}
-
-.GridItem__page:hover .GridItem__icon {
-  color: var(--Theme__accent300);
-}
-
-.GridItem__page:active .GridItem__icon {
-  color: var(--Theme__accent400);
 }
 
 .Grid__square .GridItem {
