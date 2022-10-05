@@ -153,9 +153,29 @@ export const Media = function() {
 
             } else if (postItem.data.is_gallery) {
 
-              type = 'image';
+              if (postItem.data.media_metadata && postItem.data.gallery_data.items) {
 
-              url = postItem.data.media_metadata[postItem.data.gallery_data.items[0].media_id].s.u.replace(/amp;/g, '');
+                switch (postItem.data.media_metadata[postItem.data.gallery_data.items[0].media_id].e) {
+
+                  case 'Image':
+
+                    type = 'image';
+
+                    url = postItem.data.media_metadata[postItem.data.gallery_data.items[0].media_id].s.u.replace(/amp;/g, '');
+
+                    break;
+
+                  case 'AnimatedImage':
+
+                    type = 'video';
+
+                    url = postItem.data.media_metadata[postItem.data.gallery_data.items[0].media_id].s.mp4.replace(/amp;/g, '');
+
+                    break;
+
+                }
+
+              }
 
             }
 
