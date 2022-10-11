@@ -9,6 +9,7 @@ import { node } from '../../utility/node';
 import { complexNode } from '../../utility/complexNode';
 import { applyCSSVar } from '../../utility/applyCSSVar';
 import { removeCSSVar } from '../../utility/removeCSSVar';
+import { specialCharacters } from '../../utility/specialCharacters';
 
 import './index.css';
 
@@ -23,7 +24,6 @@ export const GridItem = function(mediaData) {
     }),
     titleText: complexNode({
       tag: 'span',
-      text: mediaData.title,
       attr: [{ key: 'class', value: 'GridItem__title' }],
     }),
     titleIcon: new Icon('link', ['GridItem__icon']),
@@ -353,6 +353,8 @@ export const GridItem = function(mediaData) {
         break;
 
     }
+
+    this.node.titleText.textContent = specialCharacters(mediaData.title);
 
     this.node.title.append(this.node.titleText);
 
