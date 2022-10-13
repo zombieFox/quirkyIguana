@@ -31,10 +31,19 @@
 }
 
 .Grid.Grid__column {
-  justify-self: center;
-  display: grid;
-  width: calc(var(--Grid__columnSizeCount) * 1%);
-  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: initial;
+}
+
+.Grid.Grid__row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: initial;
+  height: 100vh;
 }
 
 .Grid.Grid__solo {
