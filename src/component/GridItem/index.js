@@ -18,6 +18,13 @@ export const GridItem = function(mediaData) {
   this.node = {
     gridItem: node('div|class:GridItem'),
     detail: node('div|class:GridItem__detail'),
+    stats: node('div|class:GridItem__stats'),
+    score: node('div|class:GridItem__score'),
+    scoreCount: node(`span:${new Intl.NumberFormat('en-GB', { notation: 'compact', compactDisplay: 'short' }).format(mediaData.score)}|class:GridItem__scoreCount`),
+    scoreIcon: new Icon('upvote', ['GridItem__icon']),
+    comment: node('div|class:GridItem__comment'),
+    commentCount: node(`span:${new Intl.NumberFormat('en-GB', { notation: 'compact', compactDisplay: 'short' }).format(mediaData.comment)}|class:GridItem__commentCount`),
+    commentIcon: new Icon('comment', ['GridItem__icon']),
     title: complexNode({
       tag: 'a',
       attr: [{ key: 'class', value: 'GridItem__page' }, { key: 'href', value: mediaData.page }, { key: 'target', value: '_blank' }],
@@ -370,7 +377,21 @@ export const GridItem = function(mediaData) {
 
     this.node.detail.append(this.node.title);
 
-    this.node.detail.append(this.node.subreddit);
+    this.node.score.append(this.node.scoreCount);
+
+    this.node.score.append(this.node.scoreIcon.getNode());
+
+    this.node.stats.append(this.node.score);
+
+    this.node.comment.append(this.node.commentCount);
+
+    this.node.comment.append(this.node.commentIcon.getNode());
+
+    this.node.stats.append(this.node.comment);
+
+    this.node.stats.append(this.node.subreddit);
+
+    this.node.detail.append(this.node.stats);
 
     this.node.gridItem.append(this.node.detail);
 

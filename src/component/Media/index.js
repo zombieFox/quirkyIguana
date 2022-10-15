@@ -184,6 +184,8 @@ export const Media = function() {
               arrayOfMedia.push({
                 type,
                 url,
+                score: postItem.data.score,
+                comment: postItem.data.num_comments,
                 title: postItem.data.title,
                 page: `https://www.reddit.com${postItem.data.permalink}`,
                 subreddit: `https://www.reddit.com/${postItem.data.subreddit_name_prefixed}`,
