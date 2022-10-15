@@ -86,7 +86,8 @@
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
-  gap: 1em;
+  column-gap: 1em;
+  row-gap: 0.5em;
   max-width: 100%;
   font-size: 0.5em;
   line-height: 1.4;
