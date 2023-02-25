@@ -6,7 +6,6 @@ import { Icon } from '../Icon';
 import { app } from '../../';
 import { config } from '../../config';
 import { node } from '../../utility/node';
-import { complexNode } from '../../utility/complexNode';
 import { applyCSSVar } from '../../utility/applyCSSVar';
 import { removeCSSVar } from '../../utility/removeCSSVar';
 import { specialCharacters } from '../../utility/specialCharacters';
@@ -17,32 +16,25 @@ export const GridItem = function(mediaData) {
 
   this.node = {
     gridItem: node('div|class:GridItem'),
+
     detail: node('div|class:GridItem__detail'),
     stats: node('div|class:GridItem__stats'),
+
     score: node('div|class:GridItem__score'),
-    scoreCount: node(`span:${new Intl.NumberFormat('en-GB', { notation: 'compact', compactDisplay: 'short' }).format(mediaData.score)}|class:GridItem__scoreCount`),
+    scoreCount: node('span|class:GridItem__scoreCount'),
     scoreIcon: new Icon('upvote', ['GridItem__icon']),
+
     comment: node('div|class:GridItem__comment'),
-    commentCount: node(`span:${new Intl.NumberFormat('en-GB', { notation: 'compact', compactDisplay: 'short' }).format(mediaData.comment)}|class:GridItem__commentCount`),
+    commentCount: node('span|class:GridItem__commentCount'),
     commentIcon: new Icon('comment', ['GridItem__icon']),
-    title: complexNode({
-      tag: 'a',
-      attr: [{ key: 'class', value: 'GridItem__page' }, { key: 'href', value: mediaData.page }, { key: 'target', value: '_blank' }],
-    }),
-    titleText: complexNode({
-      tag: 'span',
-      attr: [{ key: 'class', value: 'GridItem__title' }],
-    }),
+
+    title: node('a|class:GridItem__page,target:_blank'),
+    titleText: node('span|class:GridItem__title'),
     titleIcon: new Icon('link', ['GridItem__icon']),
-    subreddit: complexNode({
-      tag: 'a',
-      text: mediaData.subredditName,
-      attr: [{ key: 'class', value: 'GridItem__subreddit' }, { key: 'href', value: mediaData.subreddit }, { key: 'target', value: '_blank' }]
-    }),
-    page: complexNode({
-      tag: 'a',
-      attr: [{ key: 'class', value: 'GridItem__page' }, { key: 'href', value: mediaData.page }, { key: 'target', value: '_blank' }],
-    })
+
+    subreddit: node('a|class:GridItem__subreddit,target:_blank'),
+
+    page: node('a|class:GridItem__page,target:_blank'),
   }
 
   this.orientation = (mediaOrientation) => {
@@ -158,7 +150,7 @@ export const GridItem = function(mediaData) {
 
       case 'video':
 
-        clickOnProgress = event.path.includes(this.mediaItem.node.progress);
+        clickOnProgress = event.composedPath().includes(this.mediaItem.node.progress);
 
         break;
 
@@ -244,7 +236,7 @@ export const GridItem = function(mediaData) {
 
     this.node.gridItem.addEventListener('click', event => {
 
-      if (!event.altKey && !event.shiftKey && !this.videoProgressHit(event) && !event.path.includes(this.node.detail)) {
+      if (!event.altKey && !event.shiftKey && !this.videoProgressHit(event) && !event.composedPath().includes(this.node.detail)) {
 
         switch (app.grid.view.getActive().id) {
 
@@ -369,7 +361,17 @@ export const GridItem = function(mediaData) {
 
     }
 
+    this.node.title.href = mediaData.page;
+
     this.node.titleText.textContent = specialCharacters(mediaData.title);
+
+    this.node.scoreCount.textContent = new Intl.NumberFormat('en-GB', { notation: 'compact', compactDisplay: 'short' }).format(mediaData.score);
+
+    this.node.commentCount.textContent = new Intl.NumberFormat('en-GB', { notation: 'compact', compactDisplay: 'short' }).format(mediaData.comment);
+
+    this.node.subreddit.textContent = mediaData.subredditName;
+
+    this.node.subreddit.href = mediaData.subreddit;
 
     this.node.title.append(this.node.titleText);
 
